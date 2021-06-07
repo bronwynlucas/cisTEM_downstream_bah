@@ -200,7 +200,8 @@ AC_MSG_NOTICE([target gpu architecture is sm$target_arch])
 
 # Default nvcc flags
 NVCCFLAGS=" -ccbin $CXX"
-NVCCFLAGS+=" --gpu-architecture=sm_$target_arch -gencode=arch=compute_$target_arch,code=compute_$target_arch"
+NVCCFLAGS+=" --gpu-architecture=sm_$target_arch -gencode arch=compute_$target_arch,code=lto_$target_arch"
+
 
 # This is the oldest arch that will have JIT-able code g
 oldest_arch=""
@@ -224,27 +225,27 @@ if test "$oldest_arch" -gt "$target_arch" ; then
 else
 	current_arch="60"
 	if test "$current_arch" -ge $oldest_arch && test "$current_arch" -lt "$target_arch" ; then
-		NVCCFLAGS+=" -gencode=arch=compute_$current_arch,code=sm_$current_arch"
+		NVCCFLAGS+=" -gencode arch=compute_$current_arch,code=lto_$current_arch"
 	fi
 	
 	current_arch="61"
 	if test "$current_arch" -ge $oldest_arch && test "$current_arch" -lt "$target_arch" ; then
-		NVCCFLAGS+=" -gencode=arch=compute_$current_arch,code=sm_$current_arch"
+		NVCCFLAGS+=" -gencode arch=compute_$current_arch,code=lto_$current_arch"
 	fi
 	
 	current_arch="70"
 	if test "$current_arch" -ge $oldest_arch && test "$current_arch" -lt "$target_arch" ; then
-		NVCCFLAGS+=" -gencode=arch=compute_$current_arch,code=sm_$current_arch"
+		NVCCFLAGS+=" -gencode arch=compute_$current_arch,code=lto_$current_arch"
 	fi	
 	
 	current_arch="75"
 	if test "$current_arch" -ge $oldest_arch && test "$current_arch" -lt "$target_arch" ; then
-		NVCCFLAGS+=" -gencode=arch=compute_$current_arch,code=sm_$current_arch"
+		NVCCFLAGS+=" -gencode arch=compute_$current_arch,code=lto_$current_arch"
 	fi	
 	
 	current_arch="80"
 	if test "$current_arch" -ge $oldest_arch && test "$current_arch" -lt "$target_arch" ; then
-		NVCCFLAGS+=" -gencode=arch=compute_$current_arch,code=sm_$current_arch"
+		NVCCFLAGS+=" -gencode arch=compute_$current_arch,code=lto_$current_arch"
 	fi		
 		
 fi

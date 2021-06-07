@@ -242,14 +242,21 @@ libgpucore_OBJECTS=$(libgpucore_a_SOURCES:.cu=.o)
 libgpucore_a_CFLAGS = $(CUDA_CPPFLAGS) $(WX_CPPFLAGS_BASE)
 libgpucore_a_CXXFLAGS = $(CUDA_CXXFLAGS) $(WX_CXXFLAGS_BASE)
 libgpucore_a_LIBADD = gpu/gpudevicecode.o
-libgpucore_a_AR = $(NVCC) $(CUDA_CXXFLAGS) -lib -o
+libgpucore_a_LINK = $(NVCC)
+libgpucore_a_AR = $(NVCC) $(CUDA_CXXFLAGS) --dlink-time-opt -lib -o
 
 .cu.o:
 	$(NVCC) $(CUDA_CXXFLAGS) $(WX_CPPFLAGS_BASE) -dc -o $@ $<
+    # -dlto is specified for the target arch using gencode in ax-cuda
 
 gpu/gpudevicecode.o: $(libgpucore_OBJECTS)
-	$(NVCC) $(CUDA_CXXFLAGS) --device-link $(libgpucore_OBJECTS) -o gpu/gpudevicecode.o $(CUDA_LIBS)
+	$(NVCC) $(CUDA_CXXFLAGS) -v  --device-link  $(libgpucore_OBJECTS) -o gpu/gpudevicecode.o $(CUDA_LIBS)
 endif
+
+
+
+
+
 
 libcore_a_SOURCES =    core/functions.cpp \
 		       core/globals.cpp \
@@ -718,7 +725,7 @@ gpu_util_test_LDADD =  libgpucore.a libcore.a $(WX_LIBS_BASE) $(CUDA_LIBS)
 
 gpu_devices_SUFFIXES = .cpp
 gpu_devices_SOURCES =  programs/gpu_devices/gpu_devices.cpp
-gpu_devices_CXXFLAGS = $(WX_CPPFLAGS_BASE)
+gpu_devices_CXXFLAGS = $(WX_CPPFLAGS_BASE) 
 gpu_devices_CPPFLAGS = $(WX_CPPFLAGS_BASE)
 gpu_devices_LDADD =  libgpucore.a libcore.a $(WX_LIBS_BASE) $(CUDA_LIBS)
 endif

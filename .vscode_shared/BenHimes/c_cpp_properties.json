@@ -25,9 +25,9 @@
                 "${workspaceFolder}/**",
                 "/usr/local/include",
                 "/usr/include",
-                "/admin/software/wxWidgets3_static_GNU/include/",
-                "/admin/software/wxWidgets3_static_GNU/include/wx-3.0",
-                "/admin/software/wxWidgets3_static_GNU/include/wx-3.0/wx"
+                "/groups/cryoadmin/software/WX/wx_static_3.05_INTEL/include/",
+                "/groups/cryoadmin/software/WX/wx_static_3.05_INTEL/include/wx-3.0",
+                "/groups/cryoadmin/software/WX/wx_static_3.05_INTEL/include/wx-3.0/wx"
             ],
             "defines": [
                 "_FILE_OFFSET_BITS=64",
