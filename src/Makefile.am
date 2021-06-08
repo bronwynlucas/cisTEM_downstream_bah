@@ -242,7 +242,7 @@ libgpucore_OBJECTS=$(libgpucore_a_SOURCES:.cu=.o)
 libgpucore_a_CFLAGS = $(CUDA_CPPFLAGS) $(WX_CPPFLAGS_BASE)
 libgpucore_a_CXXFLAGS = $(CUDA_CXXFLAGS) $(WX_CXXFLAGS_BASE)
 libgpucore_a_LIBADD = gpu/gpudevicecode.o
-libgpucore_a_LINK = $(NVCC)
+libgpucore_a_LINK = $(NVCC) --dlink-time-opt
 libgpucore_a_AR = $(NVCC) $(CUDA_CXXFLAGS) --dlink-time-opt -lib -o
 
 .cu.o:
@@ -250,7 +250,7 @@ libgpucore_a_AR = $(NVCC) $(CUDA_CXXFLAGS) --dlink-time-opt -lib -o
     # -dlto is specified for the target arch using gencode in ax-cuda
 
 gpu/gpudevicecode.o: $(libgpucore_OBJECTS)
-	$(NVCC) $(CUDA_CXXFLAGS) -v  --device-link  $(libgpucore_OBJECTS) -o gpu/gpudevicecode.o $(CUDA_LIBS)
+	$(NVCC) $(CUDA_CXXFLAGS) -vv  --device-link  $(libgpucore_OBJECTS) -o gpu/gpudevicecode.o $(CUDA_LIBS)
 endif
 
 

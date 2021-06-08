@@ -53,7 +53,7 @@
         {
             "label": "CONFIG intel,gpu,device-lto",
             "type": "shell",
-            "command": "mkdir -p ${build_dir}/Intel-gpu-lto && cd ${build_dir}/Intel-gpu-lto && CC=icc CXX=icpc ../../configure  --with-oldest-gpu-arch=80 --with-target-gpu-arch=80 --enable-experimental --with-cuda=${cuda_dir} --enable-staticmode --enable-openmp  --with-wx-config=${wx_dir}"
+            "command": "mkdir -p ${build_dir}/Intel-gpu-lto && cd ${build_dir}/Intel-gpu-lto && CC=icc CXX=icpc ../../configure  --with-oldest-gpu-arch=80 --with-target-gpu-arch=86 --enable-experimental --with-cuda=${cuda_dir} --enable-staticmode --enable-openmp  --with-wx-config=${wx_dir}"
         },
         {
             "label": "BUILD intel,gpu,device-lto",
