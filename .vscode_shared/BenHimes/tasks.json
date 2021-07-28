@@ -30,14 +30,14 @@
         },
         
         {
-            "label": "CONFIG intel,gpu,debug,noexp",
+            "label": "CONFIG intel,gpu,debug,cufftdx",
             "type": "shell",
-            "command": "mkdir -p ${build_dir}/Intel-gpu-debug-noexp && cd ${build_dir}/Intel-gpu-debug-noexp && CC=icc CXX=icpc ../../configure  --enable-debugmode  --with-cuda=${cuda_dir} --enable-staticmode --enable-openmp  --with-wx-config=${wx_dir}INTEL/bin/wx-config"
+            "command": "mkdir -p ${build_dir}/Intel-gpu-debug-cufftdx && cd ${build_dir}/Intel-gpu-debug-cufftdx && CC=icc CXX=icpc ../../configure --with-cufftdx-dir=/groups/himesb/git/cufftdx --enable-debugmode  --with-cuda=${cuda_dir} --enable-staticmode --enable-openmp  --with-wx-config=${wx_dir}INTEL/bin/wx-config"
         },
         {
-            "label": "BUILD intel,gpu,debug,noexp",
+            "label": "BUILD intel,gpu,debug,cufftdx",
             "type": "shell",
-            "command": "cd ${build_dir}/Intel-gpu-debug-noexp && make -j${compile_cores}"
+            "command": "cd ${build_dir}/Intel-gpu-debug-cufftdx && make -j${compile_cores}"
         },
 
         {

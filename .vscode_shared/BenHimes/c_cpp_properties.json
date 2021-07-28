@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/groups/himesb/git/gemmi/include/**"
+                "/groups/himesb/git/gemmi/include/**",
+                "/groups/himesb/git/cufftdx/**"
             ],
             "defines": [
                 "_FILE_OFFSET_BITS=64",

@@ -240,6 +240,9 @@ libgpucore_a_SOURCES =       gpu/Histogram.cu \
                              gpu/TemplateMatchingCore.cu \
                              gpu/DeviceManager.cu \
                              gpu/GpuImage.cu
+if CUFFTDX_AM
+  libgpucore_a_SOURCES += gpu/FastFFT/FastFFT.cu   
+endif                         
                             
 libgpucore_OBJECTS=$(libgpucore_a_SOURCES:.cu=.o)
 

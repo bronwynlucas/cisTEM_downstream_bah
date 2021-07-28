@@ -225,15 +225,32 @@ compile_experimental="false"
 AC_ARG_ENABLE(experimental, AS_HELP_STRING([--enable-experimental],[Compile with experimental [default=no]]),[
   if test "$enableval" = yes; then
   CPPFLAGS="$CPPFLAGS -DEXPERIMENTAL"
-  if test "x$CXX" = "xicpc"; then 
-    CXXFLAGS="$CXXFLAGS -DEXPERIMENTAL  -wd1595"
-  else
-    CXXFLAGS="$CXXFLAGS -DEXPERIMENTAL"
-  fi
+    if test "x$CXX" = "xicpc"; then 
+      CXXFLAGS="$CXXFLAGS -DEXPERIMENTAL  -wd1595"
+
+    fi
   compile_experimental="true"
   fi
   ])
- 
+
+# cufftdx
+
+use_cufftdx="no"
+AC_ARG_WITH(cufftdx-dir,
+AS_HELP_STRING([--with-cufftdx-dir=DIR],[Declare the root directory of cufftdx, if its 
+                          current location is not system accessible ]),
+[
+    if test "$withval" != "yes" -a "$withval" != "" -a "$want_cuda" == "yes"; then
+        use_cufftdx="yes"
+        CUDA_CPPFLAGS="$CUDA_CPPFLAGS -I$withval/include"
+        CUDA_CXXFLAGS="$CUDA_CXXFLAGS -I$withval/include"
+        CXXFLAGS="$CXXFLAGS -DENABLECUFFTDX" 
+        
+        AC_MSG_NOTICE([Using CUFFTDX ----------------------])
+    fi
+])
+AM_CONDITIONAL([CUFFTDX_AM],[test "x$use_cufftdx" = "xyes"])
+
 #rigorous socket check 
 
 AC_ARG_ENABLE(rigorous-sockets, AS_HELP_STRING([--enable-rigorous-sockets],[Use rigorous socket checking [default=no]]),[

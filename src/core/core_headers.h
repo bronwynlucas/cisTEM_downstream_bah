@@ -195,6 +195,9 @@ protected:
 
 
  // These headers are need so that gpu specific types can be instantiated outside the if(use_gpu) brackets.
+#ifdef ENABLECUFFTDX
+#include "../gpu/FastFFT/FastFFT.h"
+#endif 
 #include "../gpu/DeviceManager.h"
 #include "../gpu/GpuImage.h"
 #include "../gpu/Histogram.h"

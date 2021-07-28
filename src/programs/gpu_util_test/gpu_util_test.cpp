@@ -13,6 +13,7 @@ GpuUtilTest : public MyApp
 	void DoInteractiveUserInput();
 	void TemplateMatchingStandalone(int nGPUs, int nThreads);
 	void createImageAddOne();
+	void FastFFT();
 
 	private:
 };
@@ -37,15 +38,46 @@ bool GpuUtilTest::DoCalculation()
 //  this->createImageAddOne();
   int nThreads = 1;
   int nGPUs = 1;
-  this->TemplateMatchingStandalone(nThreads, nGPUs);
-
+  // this->TemplateMatchingStandalone(nThreads, nGPUs);
+	this->FastFFT();
   int gpuID = 0;
   wxPrintf("I made it here\n");
 
   
-
+	return true;
 }	
 
+void GpuUtilTest::FastFFT()
+{
+	wxPrintf("In GpuUtilTest::FastFFT");
+	FastFFT::FourierTransformer FT(FastFFT::FourierTransformer::DataType::fp32);
+	Image oned;
+	oned.Allocate(64,1,1,true);
+	oned.SetToConstant(1.f);
+	FT.SetInputDimensionsAndType(64,1,1,true, false,FastFFT::FourierTransformer::DataType::fp32, FastFFT::FourierTransformer::OriginType::natural);
+	FT.SetOutputDimensionsAndType(64,1,1,true,FastFFT::FourierTransformer::DataType::fp32, FastFFT::FourierTransformer::OriginType::natural);
+	FT.SetInputPointer(oned.real_values, false);
+	for (int i = 0; i < 10; i++)
+	{
+		wxPrintf("Before %f\n",oned.real_values[i]);
+	}
+	FT.CopyHostToDevice();
+	oned.SetToConstant(0.f);
+	for (int i = 0; i < 10; i++)
+	{
+		wxPrintf("Set zero %f\n",oned.real_values[i]);
+	}
+	FT.CopyDeviceToHost(true, true);
+	for (int i = 0; i < 10; i++)
+	{
+		wxPrintf("After copy back%f\n",oned.real_values[i]);
+	}
+	std::string welcome = "FastFFT: A fast FFT library for CUDA\n";
+  std::string size_m = "Size of int is" + std::to_string(sizeof(int)) + " bytes\n";
+  std::printf("Welcome to %s\n", welcome.c_str());
+  std::printf("%s", size_m.c_str());
+
+}
 void GpuUtilTest::TemplateMatchingStandalone(int nThreads, int nGPUs)
 {
 
