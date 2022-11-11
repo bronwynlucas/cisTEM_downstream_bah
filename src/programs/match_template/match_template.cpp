@@ -942,6 +942,7 @@ bool MatchTemplateApp::DoCalculation( ) {
                     //if (first_search_position == 0) current_projection.QuickAndDirtyWriteSlice("/tmp/small_proj_nofilter.mrc", 1);
 
                     current_projection.MultiplyPixelWise(projection_filter);
+                    current_projection.ApplyCurveFilter(cosine_edge, high_resolution_limit_search);
 
                     //if (first_search_position == 0) projection_filter.QuickAndDirtyWriteSlice("/tmp/projection_filter.mrc", 1);
                     //if (first_search_position == 0) current_projection.QuickAndDirtyWriteSlice("/tmp/small_proj_afterfilter.mrc", 1);
